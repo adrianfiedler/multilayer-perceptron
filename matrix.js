@@ -15,7 +15,7 @@ class Matrix {
   randomize() {
     for (let i = 0; i < this.rows; i++) {
       for (let j = 0; j < this.cols; j++) {
-        this.data[i][j] = Math.floor(Math.random() * 10);
+        this.data[i][j] = Math.random() * 2 - 1;
       }
     }
   }
