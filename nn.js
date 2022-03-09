@@ -1,3 +1,7 @@
+function sigmoid(x) {
+  return 1 / (1 + Math.exp(-x));
+}
+
 class NeuralNetwork {
   constructor(input_nodes, hidden_nodes, output_nodes) {
     this.input_nodes = input_nodes;
@@ -11,10 +15,25 @@ class NeuralNetwork {
 
     this.bias_h = new Matrix(this.hidden_nodes, 1);
     this.bias_o = new Matrix(this.output_nodes, 1);
+    this.bias_h.randomize();
+    this.bias_o.randomize();
   }
 
-  feedforward(input) {
-    // LOTS OF MATRIX MATH!!
-    return guess;
+  feedforward(input_array) {
+    let input = Matrix.fromArray(input_array);
+
+    // hidden nodes outputs
+    let hidden = Matrix.multiply(this.weights_ih, input);
+    hidden.add(this.bias_h);
+    hidden.map(sigmoid); // activation function!
+
+    // output nodes outputs
+    let output = Matrix.multiply(this.weights_ho, hidden);
+    output.add(this.bias_o);
+    output.map(sigmoid); // activation function!
+
+    return output.toArray();
   }
+
+  train(inputs , answer) {}
 }

@@ -5,10 +5,8 @@ function preload() {}
 function setup() {
   createCanvas(400, 400);
 
-  let nn = new NeuronalNetwork(2, 2, 1);
-
+  let nn = new NeuralNetwork(2, 2, 1);
   let input = [1, 0];
-
   let output = nn.feedforward(input);
   console.log(output);
 }
