@@ -82,11 +82,26 @@ class Matrix {
     return result;
   }
 
+  static map(matrix, func) {
+    // Apply a function to every element of matrix
+    return new Matrix(matrix.rows, matrix.cols)
+      .map((e, i, j) => func(matrix.data[i][j], i, j));
+  }
+
   multiply(n) {
-    // Scalar product
-    for (let i = 0; i < this.rows; i++) {
-      for (let j = 0; j < this.cols; j++) {
-        this.data[i][j] *= n;
+    if (n instanceof Matrix) {
+      // hadamard product
+      for (let i = 0; i < this.rows; i++) {
+        for (let j = 0; j < this.cols; j++) {
+          this.data[i][j] *= n.data[i][j];
+        }
+      }
+    } else {
+      // Scalar product
+      for (let i = 0; i < this.rows; i++) {
+        for (let j = 0; j < this.cols; j++) {
+          this.data[i][j] *= n;
+        }
       }
     }
   }
@@ -109,7 +124,7 @@ class Matrix {
     for (let i = 0; i < this.rows; i++) {
       for (let j = 0; j < this.cols; j++) {
         let val = this.data[i][j];
-        this.data[i][j] = func(val);
+        this.data[i][j] = func(val, i, j);
       }
     }
   }
