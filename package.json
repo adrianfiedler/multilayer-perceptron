@@ -1,0 +1,22 @@
+{
+  "name": "multilayer-perceptron",
+  "version": "1.0.0",
+  "description": "See https://adrianfiedler.github.io/multilayer-perceptron/",
+  "main": "sketch.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adrianfiedler/multilayer-perceptron.git"
+  },
+  "author": "Adrian Fiedler",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adrianfiedler/multilayer-perceptron/issues"
+  },
+  "homepage": "https://github.com/adrianfiedler/multilayer-perceptron#readme",
+  "devDependencies": {
+    "jest": "^27.5.1"
+  }
+}

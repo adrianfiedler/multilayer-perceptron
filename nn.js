@@ -31,7 +31,8 @@ class NeuralNetwork {
     // hidden nodes outputs
     let hidden = Matrix.multiply(this.weights_ih, input);
     hidden.add(this.bias_h);
-    hidden.map(sigmoid); // activation function!
+    // activation function!
+    hidden.map(sigmoid);
 
     // output nodes outputs
     let output = Matrix.multiply(this.weights_ho, hidden);
@@ -45,6 +46,7 @@ class NeuralNetwork {
     // Generating the Hidden Outputs
     let inputs = Matrix.fromArray(input_array);
     let hidden = Matrix.multiply(this.weights_ih, inputs);
+    hidden.add(this.bias_h);
 
     //activation function!
     hidden.map(sigmoid);
@@ -59,7 +61,7 @@ class NeuralNetwork {
 
     // Calculate the error
     // ERROR = TARGETS - OUTPUTS
-    let output_errors = Matrix.substract(targets, outputs);
+    let output_errors = Matrix.subtract(targets, outputs);
 
     // let gradient = outputs * (1 - outputs)
     // delta weights gradient descent!
@@ -96,5 +98,39 @@ class NeuralNetwork {
     this.weights_ih.add(weight_ih_deltas);
     // Adjust the bias by its deltas (which is just the gradients);
     this.bias_h.add(hidden_gradient);
+  }
+
+  serialize() {
+    return JSON.stringify(this);
+  }
+
+  static deserialize(data) {
+    if (typeof data == "string") {
+      data = JSON.parse(data);
+    }
+    let nn = new NeuralNetwork(
+      data.input_nodes,
+      data.hidden_nodes,
+      data.output_nodes
+    );
+    nn.weights_ih = Matrix.deserialize(data.weights_ih);
+    nn.weights_ho = Matrix.deserialize(data.weights_ho);
+    nn.bias_h = Matrix.deserialize(data.bias_h);
+    nn.bias_o = Matrix.deserialize(data.bias_o);
+    nn.learning_rate = data.learning_rate;
+    return nn;
+  }
+
+  // Adding function for neuro-evolution
+  copy() {
+    return new NeuralNetwork(this);
+  }
+
+  // Accept an arbitrary function for mutation
+  mutate(func) {
+    this.weights_ih.map(func);
+    this.weights_ho.map(func);
+    this.bias_h.map(func);
+    this.bias_o.map(func);
   }
 }
