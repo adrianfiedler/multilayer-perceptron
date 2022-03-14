@@ -25,7 +25,11 @@ class NeuralNetwork {
     this.learning_rate = 0.1;
   }
 
-  feedforward(input_array) {
+  setLearningRate(learning_rate = 0.1) {
+    this.learning_rate = learning_rate;
+  }
+  
+  predict(input_array) {
     let input = Matrix.fromArray(input_array);
 
     // hidden nodes outputs
